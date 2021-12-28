@@ -18,3 +18,16 @@ class Book(models.Model):
 
     def __str__(self):
         return f"{self.author} - {self.title}"
+
+
+class ISBN(models.Model):
+    isbn = models.CharField(max_length=13, blank=True, null=True)
+    book = models.ForeignKey(
+        Book, on_delete=models.CASCADE, null=True, blank=True
+    )
+    searched = models.BooleanField(default=None, null=True, blank=True)
+
+    def __str__(self):
+        if self.book:
+            return self.isbn
+        return f"{self.isbn} - {self.book}"

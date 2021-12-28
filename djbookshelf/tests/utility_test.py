@@ -1,5 +1,6 @@
 import unittest
 
+from djbookshelf.exceptions import ISBNNoBookFoundException
 from djbookshelf.utility import get_book_from_isbn
 
 
@@ -13,3 +14,6 @@ class TestUtility(unittest.TestCase):
         }
         self.assertEqual(result, get_book_from_isbn("9788817016308"))
         self.assertEqual(result, get_book_from_isbn("8817016306"))
+
+        with self.assertRaises(ISBNNoBookFoundException):
+            get_book_from_isbn("881701eeeee6306")
