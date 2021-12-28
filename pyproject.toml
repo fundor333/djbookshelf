@@ -8,6 +8,7 @@ authors = ["Fundor333 <fundor333@fundor333.com>"]
 python = "^3.9"
 django = "^4.0"
 requests = "^2.26.0"
+tox = "^3.24.4"
 
 [tool.poetry.dev-dependencies]
 gunicorn = "^20.1.0"
