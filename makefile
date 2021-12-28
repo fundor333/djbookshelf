@@ -8,34 +8,33 @@ help: ## Show this help
 
 .PHONY: test
 test: ## Testing the app
-	poetry run python runtests.py
+	@poetry run python runtests.py
 
 .PHONY: install
 install: ## Install the env
-	poetry install
-	poetry run pre-commit install
-	poetry run pre-commit autoupdate
+	@poetry install
+	@poetry run pre-commit install
+	@poetry run pre-commit autoupdate
 
 .PHONY: update
 update: ## Update the dependency project
-	poetry update
+	@poetry update
 
 .PHONY: docs
 docs:  ## Previewing as you write documentation
-	poetry run mkdocs build --clean
+	@poetry run mkdocs build --clean
 
 .PHONY: html
 html: docs## Serve the docs
-	poetry run mkdocs serve
-
-prepublish: test ## Code for the prepublish
-
-publish: prepublish ## Testing and publish the paackage
-	poetry publish --build
+	@poetry run mkdocs serve
 
 .PHONY: migrate
 migrate:  ## Make migrations
-	poetry run python manage.py makemigrations
+	@poetry run python manage.py makemigrations
+
+.PHONY: tox
+tox: ## Launch tox test
+	@poetry run tox
 
 .PHONY: clean
 clean: ## Clean the directory from test stuffs
@@ -43,3 +42,8 @@ clean: ## Clean the directory from test stuffs
 	@rm -fr .xmlcoverage
 	@rm -fr .tox
 	@rm -fr dist
+
+prepublish: test tox clean ## Code for the prepublish
+
+publish: prepublish ## Testing and publish the paackage
+	@poetry publish --build

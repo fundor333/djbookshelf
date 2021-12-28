@@ -9,6 +9,7 @@ DEBUG = True
 INSTALLED_APPS = (
     "djbookshelf",
     "tests",
+    "bootstrap5",
 )
 MIDDLEWARE = []
 
