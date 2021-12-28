@@ -32,3 +32,7 @@ prepublish: test ## Code for the prepublish
 
 publish: prepublish ## Testing and publish the paackage
 	poetry publish --build
+
+.PHONY: migrate
+migrate:  ## Make migrations
+	poetry run python manage.py makemigrations
