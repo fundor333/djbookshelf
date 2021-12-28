@@ -1,35 +1,39 @@
-import json
 from typing import Union
 
-import requests
 from django.db import models
+from isbnlib import meta, cover, NotValidISBNError
 
-from djbookshelf.exceptions import ISBNNoBookFoundException, ISBNJsonException
+from djbookshelf.exceptions import ISBNNoBookFoundException
+
+ISBN_SEARCH = ["goob", "openl", "wiki"]
+
+
+def get_data_book(isbn: str) -> dict:
+    try:
+        for engine in ISBN_SEARCH:
+            data = meta(isbn, engine)
+            if data != {}:
+                return data
+        raise ISBNNoBookFoundException
+    except NotValidISBNError:
+        raise ISBNNoBookFoundException
 
 
 def get_book_from_isbn(isbn: Union[str, models.CharField]) -> dict:
-    url = f"https://www.googleapis.com/books/v1/volumes?q=isbn:{isbn}"
-    response = requests.get(url)
-    try:
-        book_data = response.json()
-        if book_data.get("totalItems", -1) == 0:
-            raise ISBNNoBookFoundException
-        volume_info = book_data["items"][0]["volumeInfo"]
-        author = volume_info["authors"]
-        prettify_author = author if len(author) > 1 else author[0]
+    image = None
+    cover_data = cover(isbn)
+    if cover_data.get("thumbnail", None):
+        image = cover_data["thumbnail"]
+    elif cover_data.get("smallThumbnail", None):
+        image = cover_data["smallThumbnail"]
 
-        image = None
-        if volume_info.get("imageLinks", None):
-            if volume_info["imageLinks"].get("thumbnail", None):
-                image = volume_info["imageLinks"]["thumbnail"]
-            elif volume_info["imageLinks"].get("smallThumbnail", None):
-                image = volume_info["imageLinks"]["smallThumbnail"]
+    data = get_data_book(isbn)
 
-        return {
-            "title": volume_info["title"],
-            "author": prettify_author,
-            "publication_date": volume_info["publishedDate"],
-            "image": image,
-        }
-    except (json.JSONDecodeError, ValueError):
-        raise ISBNJsonException
+    return {
+        "title": data.get("Title", ""),
+        "authors": data.get("Authors", []),
+        "publication_date": data.get("Year", ""),
+        "image": image,
+        "language": data.get("Language", ""),
+        "publisher": data.get("Publisher", ""),
+    }
