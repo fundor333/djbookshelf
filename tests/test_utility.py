@@ -8,12 +8,14 @@ class TestUtility(TestCase):
     def test_isbn(self):
         result = {
             "title": "Il caso di Charles Dexter Ward",
-            "author": "Howard Phillips Lovecraft",
-            "publication_date": "2007",
+            "authors": ["Howard Phillips Lovecraft"],
             "image": "http://books.google.com/books/content?id=sXO4PAAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+            "language": "it",
+            "publication_date": "2007",
+            "publisher": "",
         }
         self.assertEqual(result, get_book_from_isbn("9788817016308"))
         self.assertEqual(result, get_book_from_isbn("8817016306"))
 
         with self.assertRaises(ISBNNoBookFoundException):
-            get_book_from_isbn("881701eeeee6306")
+            get_book_from_isbn("881701ee6ee6306")
