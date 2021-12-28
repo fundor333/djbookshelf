@@ -4,7 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["Fundor333 <fundor333@fundor333.com>"]
 
-homepage = "https://github.com/fundor333/djbookshelf"
+homepage = "https://djbookshelf.readthedocs.io/en/latest/"
 repository = "https://github.com/fundor333/djbookshelf"
 license = "MIT"
 readme = "README.md"
