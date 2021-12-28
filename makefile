@@ -36,3 +36,10 @@ publish: prepublish ## Testing and publish the paackage
 .PHONY: migrate
 migrate:  ## Make migrations
 	poetry run python manage.py makemigrations
+
+.PHONY: clean
+clean: ## Clean the directory from test stuffs
+	@rm -f .coverage.*
+	@rm -fr .xmlcoverage
+	@rm -fr .tox
+	@rm -fr dist
