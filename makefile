@@ -8,7 +8,7 @@ help: ## Show this help
 
 .PHONY: test
 test: ## Testing the app
-	poetry run python -m unittest djbookshelf.tests
+	poetry run python runtests.py
 
 .PHONY: install
 install: ## Install the env

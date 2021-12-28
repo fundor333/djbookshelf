@@ -1,10 +1,10 @@
-import unittest
+from django.test import TestCase
 
 from djbookshelf.exceptions import ISBNNoBookFoundException
 from djbookshelf.utility import get_book_from_isbn
 
 
-class TestUtility(unittest.TestCase):
+class TestUtility(TestCase):
     def test_isbn(self):
         result = {
             "title": "Il caso di Charles Dexter Ward",

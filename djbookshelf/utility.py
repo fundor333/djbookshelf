@@ -1,11 +1,13 @@
 import json
+from typing import Union
 
 import requests
+from django.db import models
 
 from djbookshelf.exceptions import ISBNNoBookFoundException, ISBNJsonException
 
 
-def get_book_from_isbn(isbn: str) -> dict:
+def get_book_from_isbn(isbn: Union[str, models.CharField]) -> dict:
     url = f"https://www.googleapis.com/books/v1/volumes?q=isbn:{isbn}"
     response = requests.get(url)
     try:
