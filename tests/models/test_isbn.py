@@ -4,7 +4,6 @@ from djbookshelf.models import ISBN
 
 
 class TestISBN(TestCase):
-    @classmethod
     def setUp(self):
         # Real one
         ISBN.objects.create(isbn="9788817016308")
