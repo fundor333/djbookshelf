@@ -43,7 +43,7 @@ clean: ## Clean the directory from test stuffs
 	@rm -fr .tox
 	@rm -fr dist
 
-prepublish: test tox clean ## Code for the prepublish
+prepublish: test tox clean docs ## Code for the prepublish
 
 publish: prepublish ## Testing and publish the paackage
 	@poetry publish --build

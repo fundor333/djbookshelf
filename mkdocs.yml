@@ -1,0 +1,41 @@
+site_name: DjBookShelf's Documentation
+docs_dir: docs
+repo_url: https://github.com/fundor333/djbookshelf
+
+theme:
+    name: material
+    features:
+        - instant
+    icon:
+        repo: fontawesome/brands/github-alt
+
+markdown_extensions:
+    - admonition
+    - codehilite
+    - footnotes
+    - pymdownx.arithmatex
+    -   pymdownx.betterem:
+            smart_enable: all
+    - pymdownx.caret
+    - pymdownx.critic
+    - pymdownx.details
+    -   pymdownx.highlight:
+            use_pygments: true
+            linenums: true
+            linenums_style: pymdownx.inline
+    - pymdownx.inlinehilite
+    - pymdownx.magiclink
+    - pymdownx.mark
+    - pymdownx.smartsymbols
+    - pymdownx.superfences
+    - pymdownx.tabbed
+    -   pymdownx.tasklist:
+            custom_checkbox: true
+    - pymdownx.tilde
+    - sane_lists
+    - smarty
+    -   toc:
+            permalink: True
+
+nav:
+    -   DjBookShelf: index.md
