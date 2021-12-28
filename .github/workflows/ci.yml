@@ -1,45 +1,31 @@
-name: CI
-
-on: [push]
+name: Unit Tests
+on:
+    push:
+        branches:
+            - master
+            - develop
+    pull_request:
+        branches:
+            - master
+            - develop
 
 jobs:
-
     test:
         runs-on: ubuntu-latest
-
         steps:
-            - uses: actions/checkout@v1
-              with:
-                  fetch-depth: 1
+            - name: Check out repository
+              uses: actions/checkout@v2
 
-            - name: Set up Python 3.9
-              uses: actions/setup-python@v1
+            - name: Set up python
+              uses: actions/setup-python@v2
               with:
                   python-version: 3.9
 
             - name: Install Poetry
-              uses: dschep/install-poetry-action
+              uses: snok/install-poetry@v1
 
-            - name: Cache Poetry virtualenv
-              uses: actions/cache@v1
-              id: cache
-              with:
-                  path: ~/.virtualenvs
-                  key: poetry-${{ hashFiles('**/poetry.lock') }}
-                  restore-keys: |
-                      poetry-${{ hashFiles('**/poetry.lock') }}
-
-            - name: Set Poetry config
-              run: |
-                  poetry config settings.virtualenvs.in-project false
-                  poetry config settings.virtualenvs.path ~/.virtualenvs
-
-            - name: Install Dependencies
+            - name: Install library
               run: poetry install
-              if: steps.cache.outputs.cache-hit != 'true'
 
-
-            - name: Test
-              env:
-                  DJANGO_SETTINGS_MODULE: test.settings
+            - name: Run tests
               run: make test
