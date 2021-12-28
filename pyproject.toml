@@ -44,5 +44,5 @@ verbose = true                             # Be verbose.
 
 
 [build-system]
-requires = ["poetry>=0.12"]
+requires = ["poetry>=0.12","setuptools >= 40.6.0", "wheel"]
 build-backend = "poetry.masonry.api"
