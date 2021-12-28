@@ -308,3 +308,4 @@ modules.xml
 
 # End of https://www.toptal.com/developers/gitignore/api/python,django,pycharm+all,visualstudiocode
 db_test
+.xmlcoverage

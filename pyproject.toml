@@ -5,10 +5,9 @@ description = ""
 authors = ["Fundor333 <fundor333@fundor333.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
-django = "^4.0"
-requests = "^2.26.0"
-tox = "^3.24.4"
+python = "^3.7"
+django = ">=3.2,<5"
+requests = "^2"
 
 [tool.poetry.dev-dependencies]
 gunicorn = "^20.1.0"
@@ -17,6 +16,7 @@ pylint-django = "^2.4.4"
 skjold = "^0.4.1"
 pre-commit = "^2.16.0"
 mkdocs = "^1.2.3"
+tox = "^3.24.4"
 
 [tool.black]
 line-length = 79

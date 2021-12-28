@@ -35,7 +35,7 @@ class ISBN(models.Model):
     book = models.ForeignKey(
         Book, on_delete=models.CASCADE, null=True, blank=True
     )
-    searched = models.BooleanField(default=False)
+    searched_google = models.BooleanField(default=False)
 
     def __str__(self):
         if self.book:
@@ -43,7 +43,7 @@ class ISBN(models.Model):
         return f"{self.isbn} - {self.book}"
 
     def elaborate(self) -> (bool, bool):
-        if not self.searched:
+        if not self.searched_google:
             flag = None
             try:
                 data = get_book_from_isbn(self.isbn)
@@ -58,7 +58,7 @@ class ISBN(models.Model):
                 log.info(f"{self.isbn} not found")
                 flag = False
             finally:
-                self.searched = True
+                self.searched_google = True
                 self.save()
                 return True, flag
         return False, False
